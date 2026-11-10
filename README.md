@@ -85,7 +85,7 @@ python -m playwright install chromium ffmpeg
 python tests/browser_smoke.py
 ```
 
-The browser regression was not completed in the build workspace: its Chromium process could not create a required socket. No recording or visual verification is claimed. Unit/HTTP/model tests and JavaScript syntax checks passed.
+The browser regression and recording completed successfully in [GitHub Actions run 42878600372](https://github.com/AmirMEdris/Personality/actions/runs/42878600372). Download the `personality-app-verification` artifact on that run for `walkthrough.webm` and five actual-app screenshots (retained for 14 days). All 50 answers, scoring extremes, privacy, target boundary, inference, reset, mobile overflow and JavaScript-error checks passed. The local build workspace could not launch Chromium because a required socket was blocked; CI supplied the independent browser verification.
 
 Set `CHROMIUM_PATH` to an existing Chromium executable if needed. The browser script checks all 50 answers, trait maxima, no questionnaire POSTs, target boundaries, inference, reset and mobile overflow. Verification images/video are generated locally and ignored by git.
 
