@@ -1,0 +1,227 @@
+[
+  {
+    "trait": "extraversion",
+    "items": [
+      {
+        "text": "Am the life of the party.",
+        "direction": 1
+      },
+      {
+        "text": "Don't talk a lot.",
+        "direction": -1
+      },
+      {
+        "text": "Feel comfortable around people.",
+        "direction": 1
+      },
+      {
+        "text": "Keep in the background.",
+        "direction": -1
+      },
+      {
+        "text": "Start conversations.",
+        "direction": 1
+      },
+      {
+        "text": "Have little to say.",
+        "direction": -1
+      },
+      {
+        "text": "Talk to a lot of different people at parties.",
+        "direction": 1
+      },
+      {
+        "text": "Don't like to draw attention to myself.",
+        "direction": -1
+      },
+      {
+        "text": "Don't mind being the center of attention.",
+        "direction": 1
+      },
+      {
+        "text": "Am quiet around strangers.",
+        "direction": -1
+      }
+    ]
+  },
+  {
+    "trait": "agreeableness",
+    "items": [
+      {
+        "text": "Feel little concern for others.",
+        "direction": -1
+      },
+      {
+        "text": "Am interested in people.",
+        "direction": 1
+      },
+      {
+        "text": "Insult people.",
+        "direction": -1
+      },
+      {
+        "text": "Sympathize with others' feelings.",
+        "direction": 1
+      },
+      {
+        "text": "Am not interested in other people's problems.",
+        "direction": -1
+      },
+      {
+        "text": "Have a soft heart.",
+        "direction": 1
+      },
+      {
+        "text": "Am not really interested in others.",
+        "direction": -1
+      },
+      {
+        "text": "Take time out for others.",
+        "direction": 1
+      },
+      {
+        "text": "Feel others' emotions.",
+        "direction": 1
+      },
+      {
+        "text": "Make people feel at ease.",
+        "direction": 1
+      }
+    ]
+  },
+  {
+    "trait": "conscientiousness",
+    "items": [
+      {
+        "text": "Am always prepared.",
+        "direction": 1
+      },
+      {
+        "text": "Leave my belongings around.",
+        "direction": -1
+      },
+      {
+        "text": "Pay attention to details.",
+        "direction": 1
+      },
+      {
+        "text": "Make a mess of things.",
+        "direction": -1
+      },
+      {
+        "text": "Get chores done right away.",
+        "direction": 1
+      },
+      {
+        "text": "Often forget to put things back in their proper place.",
+        "direction": -1
+      },
+      {
+        "text": "Like order.",
+        "direction": 1
+      },
+      {
+        "text": "Shirk my duties.",
+        "direction": -1
+      },
+      {
+        "text": "Follow a schedule.",
+        "direction": 1
+      },
+      {
+        "text": "Am exacting in my work.",
+        "direction": 1
+      }
+    ]
+  },
+  {
+    "trait": "neuroticism",
+    "items": [
+      {
+        "text": "Get stressed out easily.",
+        "direction": 1
+      },
+      {
+        "text": "Am relaxed most of the time.",
+        "direction": -1
+      },
+      {
+        "text": "Worry about things.",
+        "direction": 1
+      },
+      {
+        "text": "Seldom feel blue.",
+        "direction": -1
+      },
+      {
+        "text": "Am easily disturbed.",
+        "direction": 1
+      },
+      {
+        "text": "Get upset easily.",
+        "direction": 1
+      },
+      {
+        "text": "Change my mood a lot.",
+        "direction": 1
+      },
+      {
+        "text": "Have frequent mood swings.",
+        "direction": 1
+      },
+      {
+        "text": "Get irritated easily.",
+        "direction": 1
+      },
+      {
+        "text": "Often feel blue.",
+        "direction": 1
+      }
+    ]
+  },
+  {
+    "trait": "openness",
+    "items": [
+      {
+        "text": "Have a rich vocabulary.",
+        "direction": 1
+      },
+      {
+        "text": "Have difficulty understanding abstract ideas.",
+        "direction": -1
+      },
+      {
+        "text": "Have a vivid imagination.",
+        "direction": 1
+      },
+      {
+        "text": "Am not interested in abstract ideas.",
+        "direction": -1
+      },
+      {
+        "text": "Have excellent ideas.",
+        "direction": 1
+      },
+      {
+        "text": "Do not have a good imagination.",
+        "direction": -1
+      },
+      {
+        "text": "Am quick to understand things.",
+        "direction": 1
+      },
+      {
+        "text": "Use difficult words.",
+        "direction": 1
+      },
+      {
+        "text": "Spend time reflecting on things.",
+        "direction": 1
+      },
+      {
+        "text": "Am full of ideas.",
+        "direction": 1
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "label": "Survey example 1",
+    "features": {
+      "neuroticism": 0.73545,
+      "extraversion": -0.30033,
+      "openness": -0.71727,
+      "agreeableness": 0.43852,
+      "conscientiousness": -0.89891,
+      "impulsivity": -0.21712,
+      "sensation_seeking": -0.21575
+    },
+    "reported_match": false
+  },
+  {
+    "label": "Survey example 2",
+    "features": {
+      "neuroticism": 1.23461,
+      "extraversion": 1.11406,
+      "openness": -0.58331,
+      "agreeableness": -2.21844,
+      "conscientiousness": -0.65253,
+      "impulsivity": 1.86203,
+      "sensation_seeking": 0.40148
+    },
+    "reported_match": false
+  },
+  {
+    "label": "Survey example 3",
+    "features": {
+      "neuroticism": 1.13281,
+      "extraversion": -1.23177,
+      "openness": 0.29338,
+      "agreeableness": -0.01729,
+      "conscientiousness": -1.13788,
+      "impulsivity": 1.86203,
+      "sensation_seeking": 1.92173
+    },
+    "reported_match": false
+  },
+  {
+    "label": "Survey example 4",
+    "features": {
+      "neuroticism": 1.23461,
+      "extraversion": 0.96248,
+      "openness": 0.44585,
+      "agreeableness": -0.30172,
+      "conscientiousness": -0.27607,
+      "impulsivity": 0.52975,
+      "sensation_seeking": 0.40148
+    },
+    "reported_match": true
+  },
+  {
+    "label": "Survey example 5",
+    "features": {
+      "neuroticism": -0.46725,
+      "extraversion": 2.32338,
+      "openness": 2.44904,
+      "agreeableness": 1.2861,
+      "conscientiousness": 1.30612,
+      "impulsivity": -0.21712,
+      "sensation_seeking": 0.40148
+    },
+    "reported_match": true
+  },
+  {
+    "label": "Survey example 6",
+    "features": {
+      "neuroticism": 0.41667,
+      "extraversion": 0.16767,
+      "openness": -0.31776,
+      "agreeableness": -0.91699,
+      "conscientiousness": 0.41594,
+      "impulsivity": 0.88113,
+      "sensation_seeking": 0.40148
+    },
+    "reported_match": true
+  }
+]

@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "seed": 20261110,
+  "data_sha256": "90b8cf500b07ad455baf9fe1dc519998c75a1df6d87f6bd7069176f0826ea8c1",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "sklearn": "1.8.0"
+  },
+  "target": {
+    "substances": [
+      "amphetamines",
+      "cocaine",
+      "crack",
+      "ketamine"
+    ],
+    "window": "month",
+    "minimum": 2,
+    "description": "Reported use of at least 2 of Amphetamines, Cocaine, Crack, Ketamine within the past month"
+  },
+  "features": [
+    "neuroticism",
+    "extraversion",
+    "openness",
+    "agreeableness",
+    "conscientiousness",
+    "impulsivity",
+    "sensation_seeking"
+  ],
+  "rows": 1885,
+  "positive_count": 98,
+  "prevalence": 0.0519893899204244,
+  "splits": {
+    "train": {
+      "count": 1131,
+      "positive_count": 59,
+      "ids_sha256": "3b2dcba8c89e4b23a8a4c4a5a64cd6a815e528879d659437ca9ee8354cb96a7c"
+    },
+    "validation": {
+      "count": 377,
+      "positive_count": 19,
+      "ids_sha256": "f8b8d38b7fa902a7a9110ce478f3c5ce2b33e0bec3d523cffee8b5a57f03073b"
+    },
+    "test": {
+      "count": 377,
+      "positive_count": 20,
+      "ids_sha256": "c45b467c931d082dbafeef94bbbd1b840031add813d7141c3fae93d05b016305"
+    }
+  },
+  "cv_average_precision": {
+    "logistic": {
+      "mean": 0.1576004814858188,
+      "std": 0.04436325062997832,
+      "folds": [
+        0.11059589358497877,
+        0.18885492277914626,
+        0.15244043875292976,
+        0.22466376725004128,
+        0.11144738506199797
+      ]
+    },
+    "balanced_logistic": {
+      "mean": 0.15528926266444049,
+      "std": 0.051791557559644735,
+      "folds": [
+        0.10355218449352262,
+        0.18221786312539628,
+        0.15980017100947108,
+        0.2353794815496059,
+        0.09549661314420649
+      ]
+    },
+    "random_forest": {
+      "mean": 0.12391278530305298,
+      "std": 0.05078735514062126,
+      "folds": [
+        0.11281976419523315,
+        0.06866373603770792,
+        0.11532285866757272,
+        0.21985987357757455,
+        0.10289769403717663
+      ]
+    },
+    "gradient_boosting": {
+      "mean": 0.11540716977413665,
+      "std": 0.025148098069710294,
+      "folds": [
+        0.11891551319325183,
+        0.0701663014890041,
+        0.11096244479883184,
+        0.1355662243918669,
+        0.14142536499772856
+      ]
+    },
+    "soft_voting_ensemble": {
+      "mean": 0.13828783075547993,
+      "std": 0.03835181336207104,
+      "folds": [
+        0.11990575413332136,
+        0.10618688123361118,
+        0.13274977984694927,
+        0.21312830465816843,
+        0.11946843390534936
+      ]
+    }
+  },
+  "selected": "logistic",
+  "threshold": 0.11,
+  "selection_rule": "Highest mean training-only 5-fold average precision; highest validation F1 threshold, ties favor higher threshold. No test-driven selection.",
+  "validation": {
+    "average_precision": 0.1317298893671161,
+    "roc_auc": 0.6905321964128196,
+    "brier": 0.046532126037193186,
+    "precision": 0.15151515151515152,
+    "recall": 0.2631578947368421,
+    "f1": 0.19230769230769232,
+    "balanced_accuracy": 0.5924728021170244,
+    "accuracy": 0.8885941644562334,
+    "confusion_matrix": [
+      [
+        330,
+        28
+      ],
+      [
+        14,
+        5
+      ]
+    ]
+  },
+  "test": {
+    "average_precision": 0.1287554768384649,
+    "roc_auc": 0.7759103641456583,
+    "brier": 0.04907141467599005,
+    "precision": 0.1111111111111111,
+    "recall": 0.15,
+    "f1": 0.1276595744680851,
+    "balanced_accuracy": 0.5413865546218487,
+    "accuracy": 0.8912466843501327,
+    "confusion_matrix": [
+      [
+        333,
+        24
+      ],
+      [
+        17,
+        3
+      ]
+    ]
+  },
+  "test_ci95": {
+    "average_precision": [
+      0.07745528346569863,
+      0.2435207197099587
+    ],
+    "recall": [
+      0.0,
+      0.32499999999999957
+    ],
+    "precision": [
+      0.0,
+      0.2205729166666666
+    ],
+    "f1": [
+      0.0,
+      0.25
+    ],
+    "brier": [
+      0.029414074310562633,
+      0.06823432495876439
+    ]
+  },
+  "test_baselines": {
+    "always_negative": {
+      "average_precision": 0.05305039787798409,
+      "roc_auc": 0.5,
+      "brier": 0.05305039787798409,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "accuracy": 0.946949602122016,
+      "confusion_matrix": [
+        [
+          357,
+          0
+        ],
+        [
+          20,
+          0
+        ]
+      ]
+    },
+    "training_prevalence": {
+      "average_precision": 0.05305039787798409,
+      "roc_auc": 0.5,
+      "brier": 0.05023683492539251,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "accuracy": 0.946949602122016,
+      "confusion_matrix": [
+        [
+          357,
+          0
+        ],
+        [
+          20,
+          0
+        ]
+      ]
+    }
+  },
+  "limitations": [
+    "Cross-sectional self-report sample; no future-risk or clinical validation.",
+    "Small positive class: bootstrap intervals reflect test-sample uncertainty, not model-selection uncertainty.",
+    "Dataset features were quantified by its authors before release; fold-local scaling does not undo that source preprocessing.",
+    "Repeated target exploration makes this an internal benchmark, not a pristine external validation.",
+    "No validated IPIP-to-NEO mapping. No individual questionnaire inference.",
+    "Class weighting may affect probability calibration; scores are not calibrated population probabilities."
+  ],
+  "reliability": {
+    "mean_score": [
+      0.010628921493974897,
+      0.02052699142435922,
+      0.03388964844962291,
+      0.05542923689446107,
+      0.1196623195217742
+    ],
+    "observed_fraction": [
+      0.0,
+      0.0,
+      0.05333333333333334,
+      0.08,
+      0.13157894736842105
+    ]
+  },
+  "candidate_test_audit": {
+    "logistic": {
+      "average_precision": 0.1287554768384649,
+      "roc_auc": 0.7759103641456583,
+      "brier": 0.04907141467599005,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "accuracy": 0.946949602122016,
+      "confusion_matrix": [
+        [
+          357,
+          0
+        ],
+        [
+          20,
+          0
+        ]
+      ]
+    },
+    "balanced_logistic": {
+      "average_precision": 0.12039542503730218,
+      "roc_auc": 0.7647058823529411,
+      "brier": 0.19180345392831805,
+      "precision": 0.11382113821138211,
+      "recall": 0.7,
+      "f1": 0.1958041958041958,
+      "balanced_accuracy": 0.6973389355742297,
+      "accuracy": 0.6949602122015915,
+      "confusion_matrix": [
+        [
+          248,
+          109
+        ],
+        [
+          6,
+          14
+        ]
+      ]
+    },
+    "random_forest": {
+      "average_precision": 0.13023478331913757,
+      "roc_auc": 0.7749299719887955,
+      "brier": 0.0946854839430013,
+      "precision": 0.16129032258064516,
+      "recall": 0.25,
+      "f1": 0.19607843137254902,
+      "balanced_accuracy": 0.5885854341736695,
+      "accuracy": 0.8912466843501327,
+      "confusion_matrix": [
+        [
+          331,
+          26
+        ],
+        [
+          15,
+          5
+        ]
+      ]
+    },
+    "gradient_boosting": {
+      "average_precision": 0.1202784773927303,
+      "roc_auc": 0.7455182072829132,
+      "brier": 0.049671911535732784,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "accuracy": 0.946949602122016,
+      "confusion_matrix": [
+        [
+          357,
+          0
+        ],
+        [
+          20,
+          0
+        ]
+      ]
+    },
+    "soft_voting_ensemble": {
+      "average_precision": 0.12967641710987393,
+      "roc_auc": 0.7712885154061624,
+      "brier": 0.05305131928293439,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "accuracy": 0.946949602122016,
+      "confusion_matrix": [
+        [
+          357,
+          0
+        ],
+        [
+          20,
+          0
+        ]
+      ]
+    }
+  }
+}

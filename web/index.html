@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Personality Studio</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <aside>
+      <a class="brand" href="/">p<span>ersonality</span><i>studio</i></a>
+      <p class="eyebrow">A study in human patterns</p>
+      <nav aria-label="Main">
+        <button data-view="overview" class="active">
+          01 <span>The research</span></button
+        ><button data-view="profile">02 <span>Your personality</span></button
+        ><button data-view="target">03 <span>Define the question</span></button
+        ><button data-view="model">04 <span>Explore the model</span></button>
+      </nav>
+      <div class="aside-note">
+        <span class="dot"></span> Local & private
+        <p>No accounts. No tracking.<br />Your answers stay in this tab.</p>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <span>PERSONALITY × DATA</span
+        ><span class="pill">Research edition · 01</span>
+      </header>
+      <div id="content" aria-live="polite"><p>Loading the research…</p></div>
+      <footer>
+        Created from Amir’s original idea. Rebuilt with reproducible
+        evidence.<br />Exploration, not diagnosis or a prediction of your
+        future.
+      </footer>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

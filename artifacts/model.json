@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "name": "logistic",
+  "measurement": "uci373_quantified",
+  "features": [
+    "neuroticism",
+    "extraversion",
+    "openness",
+    "agreeableness",
+    "conscientiousness",
+    "impulsivity",
+    "sensation_seeking"
+  ],
+  "target": {
+    "substances": [
+      "amphetamines",
+      "cocaine",
+      "crack",
+      "ketamine"
+    ],
+    "window": "month",
+    "minimum": 2,
+    "description": "Reported use of at least 2 of Amphetamines, Cocaine, Crack, Ketamine within the past month"
+  },
+  "threshold": 0.11,
+  "ranges": {
+    "neuroticism": [
+      -3.46436,
+      3.27393
+    ],
+    "extraversion": [
+      -3.27393,
+      3.27393
+    ],
+    "openness": [
+      -3.27393,
+      2.90161
+    ],
+    "agreeableness": [
+      -3.46436,
+      3.46436
+    ],
+    "conscientiousness": [
+      -3.46436,
+      3.46436
+    ],
+    "impulsivity": [
+      -2.55524,
+      2.90161
+    ],
+    "sensation_seeking": [
+      -2.07848,
+      1.92173
+    ]
+  },
+  "estimator": {
+    "kind": "logistic",
+    "means": [
+      -0.0017630238726790146,
+      0.012928045977011537,
+      0.029147267904509225,
+      -0.0490690716180372,
+      -0.0037097347480106336,
+      0.01879922192749764,
+      0.013234438549955693
+    ],
+    "scales": [
+      0.9865323927623747,
+      1.0024703315876806,
+      0.9819777053830564,
+      0.9981028099416284,
+      0.9897194621553042,
+      0.9347989069016833,
+      0.9673501971788143
+    ],
+    "coefficients": [
+      0.20726731505469184,
+      0.033907758526628,
+      0.19685960158955484,
+      -0.3396943266158965,
+      -0.1528481819907844,
+      0.04281066979613653,
+      0.4901406585517415
+    ],
+    "intercept": -3.2349373803915764
+  }
+}

@@ -1,0 +1,8 @@
+# Sources and permissions
+
+- Original creative project: [AmirMEdris/PredictingDrugUse](https://github.com/AmirMEdris/PredictingDrugUse), reviewed at commit `94a1daca71dcca6d62ed41199c4dc117db5b77d3`. The original repository is unchanged.
+- Fehrman, E., Egan, V., & Mirkes, E. (2015). [Drug Consumption (Quantified), UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/373/drug+consumption+quantified). DOI [10.24432/C5TC7S](https://doi.org/10.24432/C5TC7S). UCI distributes the dataset under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This project derives targets, fitted model parameters, aggregate evaluations and six selected example feature vectors from that data. These transformations are ours; the source does not endorse the app. Raw data is fetched separately and is not committed.
+- IPIP: [Big Five factor-marker keys](https://ipip.ori.org/newBigFive5broadKey.htm), [scoring instructions](https://ipip.ori.org/newScoringInstructions.htm), [public-domain permission](https://ipip.ori.org/newPermission.htm). Questionnaire statements are public-domain IPIP items; punctuation is normalized. Neuroticism reverses the Emotional Stability direction; the app labels Intellect/Imagination as openness.
+- NEO assessment items are not included. UCI data availability does not grant rights to reproduce a proprietary questionnaire. No equivalence between the IPIP and NEO instruments is assumed.
+
+Application source has no new blanket software license assigned here. Choose a software license as the repository owner before advertising broader reuse rights. Third-party dataset and IPIP terms remain as described above.
