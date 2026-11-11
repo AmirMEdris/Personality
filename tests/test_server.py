@@ -9,7 +9,11 @@ class ServerTests(unittest.TestCase):
     def request(self,method,path,body=None,headers=None):
         c=http.client.HTTPConnection('127.0.0.1',self.server.server_port,timeout=5);c.request(method,path,body,headers or {});r=c.getresponse();status=r.status;data=r.read();c.close();return status,data
     def test_routes_and_privacy(self):
-        self.assertEqual(self.request('GET','/')[0],200)
+        for path in ['/', '/workbench', '/workbench.js', '/workbench.css', '/api/workbench']:
+            self.assertEqual(self.request('GET',path)[0],200)
+        report=json.loads(self.request('GET','/api/workbench')[1])
+        self.assertIn('stacked_ensemble',report['selection']['cv'])
+        self.assertEqual(sum(map(sum,report['test']['confusion_matrix'])),report['protocol']['splits']['test']['n'])
         for path in ['/data/drug_consumption.data','/../config/target.json','/api/answers']:
             self.assertEqual(self.request('GET',path)[0],404)
         self.assertEqual(self.request('GET','/',headers={'Host':'evil.example'})[0],403)
