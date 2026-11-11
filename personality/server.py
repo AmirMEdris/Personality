@@ -17,7 +17,7 @@ class Handler(BaseHTTPRequestHandler):
         return self.headers.get('Host') in [f'127.0.0.1:{port}',f'localhost:{port}']
     def do_GET(self):
         if not self.safe_host(): return self.send(403,{'error':'Local access only.'})
-        routes={'/':('web/index.html','text/html; charset=utf-8'),'/app.js':('web/app.js','text/javascript'),'/style.css':('web/style.css','text/css'),'/survey.json':('web/survey.json','application/json'),'/api/report':('artifacts/report.json','application/json'),'/api/examples':('artifacts/examples.json','application/json')}
+        routes={'/workbench':('web/workbench.html','text/html; charset=utf-8'),'/workbench.js':('web/workbench.js','text/javascript'),'/workbench.css':('web/workbench.css','text/css'),'/api/workbench':('artifacts/workbench/report.json','application/json'),'/':('web/index.html','text/html; charset=utf-8'),'/app.js':('web/app.js','text/javascript'),'/style.css':('web/style.css','text/css'),'/survey.json':('web/survey.json','application/json'),'/api/report':('artifacts/report.json','application/json'),'/api/examples':('artifacts/examples.json','application/json')}
         if self.path not in routes:return self.send(404,{'error':'Not found.'})
         path,mime=routes[self.path];self.send(200,(ROOT/path).read_bytes(),mime)
     def do_POST(self):

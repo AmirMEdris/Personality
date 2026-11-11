@@ -294,6 +294,7 @@ Promise.all(
 )
   .then((d) => {
     [report, examples, survey] = d;
+    if (location.hash === "#profile") view = "profile";
     render();
   })
   .catch((e) => {

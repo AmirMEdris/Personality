@@ -1,96 +1,139 @@
 # Personality Studio
 
-A modern rebuild of Amir Edris’s [PredictingDrugUse](https://github.com/AmirMEdris/PredictingDrugUse): explore personality, construct an explicit research target, and inspect reproducible machine-learning results. The original repository is preserved.
+**From a creative questionnaire-to-model idea to an inspectable research application.**
 
-**This models reported past use in a historical survey. It does not predict future risk, diagnose addiction, or support decisions about individuals.**
+Explore your personality locally, define exactly what a reported-use outcome means, and examine an advanced machine-learning pipeline through interactive diagrams and real evaluation charts. Built from Amir Edris’s [original project](https://github.com/AmirMEdris/PredictingDrugUse), which remains unchanged.
 
-## Run the application
+> **Status:** the personality app and UCI research workbench run today. The matched IPIP-to-substance model is blocked on LISS access, permitted processing/model release, and sufficient matched observations. The app does not infer drug use from questionnaire answers. No clinical or future-risk claim is made.
 
-Install Python 3.12 or later, download or clone this repository, open a terminal in its folder, and run:
+## Start in one command
+
+Python 3.12+; no runtime package installation, GPU or account required for the web application:
 
 ```sh
 python -m personality.server
 ```
 
-Open **http://127.0.0.1:8765**. On Windows, `py -3 -m personality.server` also works. Stop with Ctrl+C. No pip install, GPU, account, or data download is needed to use the shipped application. Use `--port 8766` if the default port is occupied.
+Open **http://127.0.0.1:8765/workbench** for the new research experience, or **http://127.0.0.1:8765** for the questionnaire, target playground and original baseline explorer. On Windows, `py -3 -m personality.server` works too. Use `--port 8766` if needed. Stop with Ctrl+C.
 
-The app includes:
+### What you can explore
 
-- A responsive, keyboard-accessible 50-item IPIP questionnaire, with named trait wiring, reverse scoring, required answers, progress and reset.
-- A configurable target playground: select substances, recency window and minimum count; inspect hypothetical responses and download a training configuration.
-- A model lab with six public dataset examples, live inference, model comparison, confusion matrix, uncertainty and downloadable evaluation.
-- Local-only serving, no analytics or cookies, no stored questionnaire responses and no remote scripts. Questionnaire answers stay in browser memory; reload clears them. Only public dataset examples go to the local inference endpoint.
+- **Personality:** 50 IPIP items, correctly keyed named traits, raw-score profiles and progress. No responses are persisted or sent to a remote service.
+- **Pipeline:** six selectable stages explain acquisition, target engineering, splitting, model selection, calibration and audit.
+- **Outcome engineering:** recent breadth, substance-specific profiles and recency sensitivity, clearly marked as implemented or proposed.
+- **Missing-data laboratory:** see when incomplete substance answers still establish a label, and when the result must remain unknown.
+- **Evidence dashboard:** cross-validation comparison, validation permutation importance, audit precision–recall and reliability curves, validation threshold trade-offs and training co-occurrence counts.
+- **Reproducible evidence:** download the exact displayed JSON report. Every metric shown comes from a completed run, not a mockup.
 
-## What is actually trained?
+## The advanced architecture
 
-The default label is **at least two of amphetamines, cocaine, crack and ketamine reported within the past month** (CL4, CL5 or CL6). These four preserve the original project’s selected group; ketamine is not being labeled a stimulant. “Meth” in the dataset is methadone, not methamphetamine.
+```mermaid
+flowchart TD
+    A[Source checksum and measurement contract] --> B[Explicit substance / window / minimum target]
+    B --> C[Fixed participant train / validation / test split]
+    C --> D[Training-only outer 5-fold tournament]
+    D --> E[Linear baseline]
+    D --> F[Pairwise interactions + regularized logistic]
+    D --> G[Extra Trees]
+    D --> H[Gradient boosting]
+    D --> I[Stack: inner 3-fold predictions from E/F/G/H]
+    I --> J[Regularized logistic combiner]
+    E & F & G & H & J --> K[Select by training mean average precision]
+    K --> L[Training OOF scores → sigmoid calibration]
+    L --> M[Validation F1 operating threshold]
+    M --> N[Selected-model audit + uncertainty + provenance]
+```
 
-Seven named quantified features: neuroticism, extraversion, openness, agreeableness, conscientiousness, impulsivity and sensation seeking. Demographic features are excluded in this first rebuild. The fictitious Semeron response is not a selectable outcome; no respondents are removed based on it in this protocol.
+All imputation and scaling are fitted within model pipelines inside the appropriate training folds. The stack learns from out-of-fold base predictions, not in-sample predictions. No synthetic respondents or pre-split resampling are used. Calibration uses training OOF scores; validation selects the threshold. The test partition is used for the selected-model audit only in the new runner.
 
-The dataset has 1,885 people and 98 matches (5.20%). Fixed stratified splits: 1,131 training, 377 validation, 377 test. No balancing occurs before splitting. Five-fold training-only cross-validation compares logistic regression, weighted logistic regression, random forest, gradient boosting and a soft-voting ensemble. Validation selects the F1 operating threshold; the test set is evaluated afterward. All candidate specifications and seeds are explicit.
+**This UCI test partition has already been inspected in earlier work.** Keeping the original split avoids disguising a new random partition as fresh evidence. Results are an internal benchmark, not external validation. Global quantification performed by the source authors cannot be undone by fold-local scaling.
 
-The selected model is **logistic regression**, not the more complex ensemble. On 377 held-out people:
+## Actual results: complexity was tested, not assumed superior
+
+Default target: at least two of amphetamines, cocaine, crack and ketamine reported within the past month. UCI provides 1,885 respondents, including 98 matches. Features are seven source-quantified personality/impulsivity/sensation measures; no substance outcome is a predictor.
+
+| Candidate | Training 5-fold mean AP |
+|---|---:|
+| Extra Trees | 0.1611 |
+| Regularized linear | 0.1610 |
+| Stacked ensemble | 0.1485 |
+| Boosted trees | 0.1287 |
+| Pairwise interactions | 0.1250 |
+
+The numerical difference between the top two is tiny; it is not evidence of statistically established superiority. The predeclared rule selected Extra Trees. On the 377-person internal audit partition (20 positives), calibrated Extra Trees achieved:
 
 | Measure | Result |
 |---|---:|
-| Average precision | 0.1288 |
-| Constant-score AP baseline | 0.0531 |
-| AP bootstrap 95% interval | 0.0775–0.2435 |
-| ROC AUC | 0.7759 |
-| Precision / recall at threshold 0.11 | 11.1% / 15.0% |
-| True positive / false positive | 3 / 24 |
-| False negative / true negative | 17 / 333 |
-| Brier / constant-prevalence Brier | 0.04907 / 0.05024 |
+| Average precision / constant baseline | 0.1322 / 0.0531 |
+| AP bootstrap 95% interval | 0.0712–0.2848 |
+| Precision / recall | 15.8% / 15.0% |
+| True positives / false positives | 3 / 16 |
+| False negatives / true negatives | 17 / 341 |
+| ROC AUC | 0.7485 |
+| Brier score | 0.04851 |
 
-Ranking is better than the constant-score baseline, but the operating classifier is weak. The test set contains only 20 positives. Bootstrap intervals do not include model-selection uncertainty. Scores are not calibrated population probabilities. See [the model card](docs/MODEL_CARD.md) and [full results](artifacts/report.json).
+**This remains weak for individual inference.** Internal calibration and a complex model do not solve the measurement mismatch or small positive class. The cloud CPU run completed in 7.7 seconds; it did not use the laptop GPU. [Full report](artifacts/workbench/report.json).
 
-## Questionnaire and measurement boundary
-
-IPIP items are public domain. The app scores each 10-item domain from 10 to 50; reverse-keyed answers contribute `6 - response`. Neuroticism is the reverse of the IPIP Emotional Stability direction. Openness is the conventional label used here for the IPIP Intellect/Imagination scale. These are raw sums, not norms or percentiles.
-
-**The dataset used NEO-FFI-R, not this IPIP inventory.** It also includes separate impulsivity and sensation-seeking instruments. There is no established, validated conversion implemented here. Questionnaire totals therefore do not feed the drug-use model. This is a deliberate scientific boundary, not a claim that Amir’s questionnaire work was inherently unreliable. See [measurement notes](docs/MEASUREMENT.md).
-
-## Reproduce or change an experiment
-
-Training needs Python 3.12 and the pinned scientific dependencies. The data is downloaded from UCI separately, checked against a pinned SHA-256, and ignored by git.
+## Reproduce the research pipeline
 
 ```sh
 python -m venv .venv
-# Activate .venv (Windows: .venv\Scripts\activate; macOS/Linux: source .venv/bin/activate)
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m personality.data
-python -m personality.experiment
+python -m personality.run_workbench --output experiments/my-run
 ```
 
-The bounded entry point limits numerical libraries to one thread, uses CPU only and terminates a training job after four hours. This dataset is small; the verified cloud run took far less than that. Nothing uses your laptop’s GPU. For a downloaded target configuration:
+The launcher runs CPU-only with one numerical thread and a four-hour process timeout. Use a fresh output directory: the runner refuses to overwrite earlier evidence. The protocol is written before candidate scores; selection is written before the test audit. A failed/timeout run is incomplete, even if some files exist.
+
+Outputs: `protocol.json`, `selection.json`, `report.json`, `checkpoint.joblib`, `checkpoint.sha256`. Checkpoints stay in ignored `experiments/`; only aggregate reports belong in the public repository. Joblib can execute code: load **only a checkpoint you trained locally**. Its checksum detects accidental changes; it is not proof of trust.
+
+For local research inference, create a JSON file with `measurement: "uci_quantified_neo"` and a `features` object containing exactly the seven names in the protocol, then run:
 
 ```sh
-python -m personality.experiment --config path/to/target.json --output experiments/my-target
+python -m personality.predict_workbench --run experiments/my-run --input example.json
 ```
 
-Review the output before replacing the shipped `artifacts/` files. The playground alone never changes the model. A target needs at least 30 participants in each class for this protocol. Repeated target experiments reuse this dataset and are not independent external validation. Do not select a target or model by its test score.
+This CLI uses the selected advanced model and calibrator. It rejects IPIP measurement labels. The original web demo retains its portable JSON baseline model; the new workbench visualizes the advanced run. Neither accepts questionnaire answers as UCI features.
 
-## Verification
+## The matched-data route
+
+LISS documents the same 50 IPIP item statements and five-point accuracy scale. Its 2008 personality wave precedes the November substance survey, with past-30-day cannabis, ecstasy, cocaine and heroin outcomes. This could preserve the original concept with an explicit change in substance selection.
+
+`personality/liss.py` is a **fixture-tested adapter**, not a trained LISS model. It joins on participant identity, rejects duplicate IDs and contradictory routing, preserves missingness, and assigns count labels only when the known bounds establish them. It has not been validated on actual LISS records. Household grouping, missingness audit, language/population generalization, class counts and permissions must be settled before real training.
+
+No LISS records have been acquired, no terms accepted, and no account created. [LISS access conditions](https://www.lissdata.nl/how-it-works-archive), [actual agreement](https://liss.statements.centerdata.nl/), [personality codebook](https://dataarchive.lissdata.nl/hosted-files/download/113), [substance codebook](https://dataarchive.lissdata.nl/hosted-files/download/379).
+
+## Verification and maintenance
 
 ```sh
 python -m unittest discover -s tests -v
 node --check web/app.js
-```
-
-Nine unit/integration tests cover label boundaries, invalid inputs, split isolation, HTTP origin/host checks, measurement rejection, survey keys and portable inference parity for all five candidates. Scientific dependencies are needed for the training tests. Optional browser regression and recording, with the server already running:
-
-```sh
+node --check web/workbench.js
+# Optional real-browser verification:
 python -m pip install playwright==1.62.0
-python -m playwright install chromium ffmpeg
-python tests/browser_smoke.py
+python -m playwright install chromium
+PYTHONPATH=. python tests/browser_workbench.py
 ```
 
-The browser regression and recording completed successfully in [GitHub Actions run 42878600372](https://github.com/AmirMEdris/Personality/actions/runs/42878600372). Download the `personality-app-verification` artifact on that run for `walkthrough.webm` and five actual-app screenshots (retained for 14 days). All 50 answers, scoring extremes, privacy, target boundary, inference, reset, mobile overflow and JavaScript-error checks passed. The local build workspace could not launch Chromium because a required socket was blocked; CI supplied the independent browser verification.
+On PowerShell, set `$env:PYTHONPATH='.'` before the browser command. Browser tests cover pipeline navigation, report rendering, missing-label logic, threshold interaction and mobile overflow. Local verification: 13 automated tests passed, JavaScript syntax checks passed, and advanced checkpoint inference plus measurement rejection were verified. Browser rendering is **not yet verified** in this environment: the browser download returned an invalid archive and system Chromium was blocked by a required socket permission. CI includes the browser checks but has not run for this revision.
 
-Set `CHROMIUM_PATH` to an existing Chromium executable if needed. The browser script checks all 50 answers, trait maxima, no questionnaire POSTs, target boundaries, inference, reset and mobile overflow. Verification images/video are generated locally and ignored by git.
+Unit tests cover identity joins, missing/contradictory outcomes, stacking with fold-local missing features, existing target semantics, portable baseline parity and server access controls.
 
-## Project layout
+The application binds to loopback, uses a restrictive CSP, serves fixed routes, and stores no questionnaire responses. It is a local research application, not a hardened multi-user hosted service. No telemetry or external web assets are loaded.
 
-`personality/core.py`: target and safe JSON inference; `data.py`: acquisition/schema validation; `train.py`: reproducible experiment; `experiment.py`: resource bounds; `server.py`: loopback HTTP app. `web/`: dependency-free interface and IPIP keys. `artifacts/`: evaluated model, report and selected public examples. Models use JSON, never executable pickle.
+## Navigate the project
 
-[Sources and third-party permissions](docs/SOURCES.md). No software license is assigned on Amir’s behalf; dataset and IPIP permissions are separately documented. This application is intended for local research, not public internet hosting.
+| Area | Entry point |
+|---|---|
+| Advanced experiment / resource bounds | `personality/workbench.py` / `run_workbench.py` |
+| Local advanced inference | `personality/predict_workbench.py` |
+| LISS metadata-derived adapter | `personality/liss.py` |
+| Questionnaire and baseline | `web/app.js`, `personality/core.py` |
+| Interactive workbench | `web/workbench.html`, `.js`, `.css` |
+| Design decisions and data contracts | [Engineering decisions](docs/ENGINEERING.md) |
+| Original experiment details | [Baseline documentation](docs/LEGACY_BENCHMARK.md) |
+| Measurement and source permissions | [Measurement](docs/MEASUREMENT.md), [Sources](docs/SOURCES.md) |
+
+IPIP items are public domain; UCI data is CC BY 4.0 with attribution documented in Sources. No software licence or LISS redistribution permission is assigned on Amir’s behalf.
