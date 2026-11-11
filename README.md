@@ -117,7 +117,7 @@ python -m playwright install chromium
 PYTHONPATH=. python tests/browser_workbench.py
 ```
 
-On PowerShell, set `$env:PYTHONPATH='.'` before the browser command. Browser tests cover pipeline navigation, report rendering, missing-label logic, threshold interaction and mobile overflow. Local verification: 13 automated tests passed, JavaScript syntax checks passed, and advanced checkpoint inference plus measurement rejection were verified. Browser rendering is **not yet verified** in this environment: the browser download returned an invalid archive and system Chromium was blocked by a required socket permission. CI includes the browser checks but has not run for this revision.
+On PowerShell, set `$env:PYTHONPATH='.'` before the browser command. Browser tests cover pipeline navigation, report rendering, missing-label logic, threshold interaction and mobile overflow. Local verification: 13 automated tests passed, JavaScript syntax checks passed, and advanced checkpoint inference plus measurement rejection were verified. Browser verification passed in [GitHub Actions run 42978521713](https://github.com/AmirMEdris/Personality/actions/runs/42978521713) for application commit `982cfc1`: full questionnaire regression, workbench interactions, mobile overflow checks, screenshots and recordings. Desktop and mobile workbench screenshots were also visually inspected. Download the `personality-app-verification` artifact on that run (expires November 25, 2026). Local Chromium was blocked by a socket restriction; CI supplied the browser verification.
 
 Unit tests cover identity joins, missing/contradictory outcomes, stacking with fold-local missing features, existing target semantics, portable baseline parity and server access controls.
 
